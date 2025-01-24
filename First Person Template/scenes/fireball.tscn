@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://k0mwk0833kev"]
+
+[ext_resource type="Script" path="res://scripts/fireball.gd" id="1_hyf63"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4rkh7"]
+albedo_color = Color(0.676585, 0.421946, 0.0385418, 0)
+emission_enabled = true
+emission = Color(0.48267, 0.304466, 0.0716102, 1)
+emission_energy_multiplier = 5.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_btfs1"]
+top_radius = 0.001
+bottom_radius = 0.08
+height = 0.5
+
+[node name="Fireball" type="Node3D"]
+script = ExtResource("1_hyf63")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_4rkh7")
+mesh = SubResource("CylinderMesh_btfs1")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.627247)
+target_position = Vector3(0, 0, -1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
